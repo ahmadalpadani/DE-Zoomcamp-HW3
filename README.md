@@ -220,3 +220,62 @@ SELECT DISTINCT PULocationID FROM ammar-zoomcamp.zoomcamp_hw3.yellow_trip_data_e
 ![alt text](image-3.png)
 
 ## Question 3
+
+```sql
+SELECT DISTINCT PULocationID FROM ammar-zoomcamp.zoomcamp_hw3.yellow_tripdata_2024;
+
+SELECT DISTINCT PULocationID, DOLocationID FROM ammar-zoomcamp.zoomcamp_hw3.yellow_tripdata_2024;
+```
+
+Answer : BigQuery is a columnar database, and it only scans the specific columns requested in the query. Querying two columns (PULocationID, DOLocationID) requires reading more data than querying one column (PULocationID), leading to a higher estimated number of bytes processed.
+
+## Question 4
+
+```sql
+SELECT DISTINCT COUNT (*) 
+FROM ammar-zoomcamp.zoomcamp_hw3.yellow_tripdata_2024
+WHERE fare_amount = 0;
+```
+![alt text](image-4.png)
+
+## Question 5
+
+```sql
+CREATE OR REPLACE TABLE zoomcamp_hw3.yellow_tripdata_2024_partition_cluster 
+PARTITION BY DATE (tpep_dropoff_datetime)
+CLUSTER BY VendorID AS (
+  SELECT * FROM ammar-zoomcamp.zoomcamp_hw3.yellow_tripdata_2024
+);
+```
+
+## Question 6
+
+```sql
+SELECT DISTINCT VendorID 
+FROM ammar-zoomcamp.zoomcamp_hw3.yellow_tripdata_2024
+WHERE tpep_dropoff_datetime BETWEEN '2024-03-01' AND '2024-03-15';
+```
+![alt text](image-5.png)
+
+```sql
+SELECT DISTINCT VendorID 
+FROM zoomcamp_hw3.yellow_tripdata_2024_partition_cluster 
+WHERE tpep_dropoff_datetime BETWEEN '2024-03-01' AND '2024-03-15';
+```
+![alt text](image-6.png)
+
+## Question 7
+
+Answer: GCP Bucket
+
+## Question 8
+
+Answer: False
+
+## Question 9
+
+```sql
+SELECT COUNT (*) FROM ammar-zoomcamp.zoomcamp_hw3.yellow_tripdata_2024;
+```
+
+
